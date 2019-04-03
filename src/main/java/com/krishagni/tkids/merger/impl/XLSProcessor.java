@@ -31,19 +31,16 @@ public class XLSProcessor implements Processor {
 				}
 
 				initPrintBufferArray();
-				int currCellIdx = 0;
 
 				for (Cell cell : row) {
 					String val = dataFormatter.formatCellValue(cell);
 					if (val.isEmpty()) {
-						currCellIdx++;
 						continue;
 					}
 					
-					String currCellHead = dataFormatter.formatCellValue(sheet.getRow(0).getCell(currCellIdx));
+					String currCellHead = getCurrCellHeader(sheet, cell);
 					
 					addToPrintBufferArray(finalHeader.indexOf(currCellHead), val);
-					currCellIdx++;
 				}
 				csvReader.printToCSV(printBufferArray);
 			};
@@ -52,6 +49,12 @@ public class XLSProcessor implements Processor {
 		workbook.close();
 	}
 	
+	private String getCurrCellHeader(Sheet sheet, Cell curCell) {
+		int currCellIdx = curCell.getAddress().getColumn();
+		Cell headerRowCell = sheet.getRow(0).getCell(currCellIdx);
+		return dataFormatter.formatCellValue(headerRowCell);
+	}
+
 	private void initPrintBufferArray() {
 		this.printBufferArray = new String[finalHeader.size()];
 	}
