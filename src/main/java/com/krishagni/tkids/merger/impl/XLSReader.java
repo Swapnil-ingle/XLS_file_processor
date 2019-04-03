@@ -38,7 +38,6 @@ public class XLSReader implements Reader {
 		List<String> headers = new ArrayList<>();
 		DataFormatter dataFormatter = new DataFormatter();
 		
-		
 		getReader(file.getAbsolutePath()).forEach(sheet -> {
 			sheet.getRow(0).forEach(cell -> {
 				String val = dataFormatter.formatCellValue(cell);

@@ -25,38 +25,30 @@ public class XLSProcessor implements Processor {
 	@Override
 	public void process(Workbook workbook, CSVWriter csvReader) throws IOException {
 		for (Sheet sheet : workbook) {
-			
-			// Process the sheet
 			for (Row row : sheet) {
-				// Skip header row
 				if (row.getRowNum() == 0) {
 					continue;
 				}
-				// create printBufferArray
+
 				initPrintBufferArray();
 				int currCellIdx = 0;
+
 				for (Cell cell : row) {
-					// Get current val
 					String val = dataFormatter.formatCellValue(cell);
 					if (val.isEmpty()) {
 						currCellIdx++;
 						continue;
 					}
 					
-					// Get col header name for current cell
 					String currCellHead = dataFormatter.formatCellValue(sheet.getRow(0).getCell(currCellIdx));
 					
-					// Get idx of curr cell header in final header list
-					// Write to the cell[idx] of current row of output CSV
 					addToPrintBufferArray(finalHeader.indexOf(currCellHead), val);
 					currCellIdx++;
 				}
-				// CSV moves to next row : Write to CSV
 				csvReader.printToCSV(printBufferArray);
 			};
 		};
 		
-		// close the workbook.
 		workbook.close();
 	}
 	

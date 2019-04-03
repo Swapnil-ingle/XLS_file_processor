@@ -19,25 +19,18 @@ public class Driver {
 	public static void main(String[] args) {
 		try {
 			Reader reader = new XLSReader(SOURCE_PATH);
-			
-			// Read all files and get the Header generated
 			List<String> outputHeader = readAllHeaders(reader, reader.getFileList());
 			
-			// Pass the generated finalHeader to XLSProcessor as constructor
 			Processor processor = new XLSProcessor(outputHeader);
-			
-			// Create CsvWriter for output file + Write the headers to output CSV file
 			CSVWriter csvWriter = new CSVWriter(SOURCE_PATH, OUTPUT_FILE_NAME);
+
 			csvWriter.printToCSV(outputHeader);
 			
 			for (File file : reader.getFileList()) {
-				// CSVWriter csvWriter = new CSVWriter(file);
 				processor.process(reader.getReader(file.getAbsolutePath()), csvWriter);
-				// Flush printer
 				csvWriter.flushPrinter();
 			}
 			
-			// Close the CSV writer
 			csvWriter.closeCsvWriter();
 		} catch (Exception e) {
 			System.out.println("Error while processing: ");
