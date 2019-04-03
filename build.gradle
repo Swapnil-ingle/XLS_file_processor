@@ -3,6 +3,8 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'application'
 
+mainClassName = 'com.krishagni.tkids.merger.Driver'
+
 jar {
 	baseName = 'merge-xls-files'
 	version = '0.0.1'
@@ -17,6 +19,5 @@ targetCompatibility = 1.8
 
 dependencies {
 	compile group: 'org.apache.poi', name: 'poi', version: '4.0.1'
-	compile "org.apache.poi:poi-ooxml:3.17"
 	compile "org.apache.commons:commons-csv:1.5"
 }

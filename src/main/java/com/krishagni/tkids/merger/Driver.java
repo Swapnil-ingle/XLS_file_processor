@@ -22,7 +22,7 @@ public class Driver {
 			List<String> outputHeader = readAllHeaders(reader, reader.getFileList());
 			
 			Processor processor = new XLSProcessor(outputHeader);
-			CSVWriter csvWriter = new CSVWriter(SOURCE_PATH, OUTPUT_FILE_NAME);
+			CSVWriter csvWriter = new CSVWriter(args[0], OUTPUT_FILE_NAME);
 
 			csvWriter.printToCSV(outputHeader);
 			
