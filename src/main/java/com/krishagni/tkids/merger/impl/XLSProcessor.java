@@ -12,11 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.krishagni.tkids.merger.Processor;
 
 public class XLSProcessor implements Processor {
-	// private Map<String, Integer> finalOutputHeader = new HashMap<>();
-	
 	private List<String> finalHeader;
-	
-//	private Map<Integer, String> currentHeader;
 	
 	private String[] printBufferArray;
 	
@@ -24,18 +20,11 @@ public class XLSProcessor implements Processor {
 	
 	public XLSProcessor(List<String> finalHeader) {
 		this.finalHeader = finalHeader;
-		
-		// Make a printBufferArray
-//		createPrintBufferArray();
 	}
 	
 	@Override
 	public void process(Workbook workbook, CSVWriter csvReader) throws IOException {
 		for (Sheet sheet : workbook) {
-			// Read Header
-			// addHeadersToFinalOutput(sheet);
-			// Add current header
-			// addToCurrentHeader(sheet);
 			
 			// Process the sheet
 			for (Row row : sheet) {
@@ -78,29 +67,4 @@ public class XLSProcessor implements Processor {
 	private void addToPrintBufferArray(int idx, String val) {
 		printBufferArray[idx] = val;
 	}
-
-//	private void addHeadersToFinalOutput(Sheet sheet) {
-//		sheet.getRow(0).forEach(cell -> {
-//			int size = finalOutputHeader.size();
-//			final Integer idx = Integer.valueOf(++size); // workaround
-//			finalOutputHeader.computeIfAbsent(dataFormatter.formatCellValue(cell), k -> idx);
-//		});
-//	}
-	
-//	private void addToCurrentHeader(Sheet sheet) {
-//		currentHeader = new HashMap<>();
-//		sheet.getRow(0).forEach(cell -> {
-//			int size = currentHeader.size();
-//			final Integer idx = Integer.valueOf(++size); // workaround
-//			currentHeader.computeIfAbsent(idx, k -> dataFormatter.formatCellValue(cell));
-//		});
-//	}
-	
-//	public Map<Integer, String> getCurrentHeader() {
-//		return currentHeader;
-//	}
-//
-//	public void setCurrentHeader(Map<Integer, String> currentHeader) {
-//		this.currentHeader = currentHeader;
-//	}
 }
