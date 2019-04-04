@@ -1,6 +1,7 @@
 package com.krishagni.tkids.merger.impl;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,20 +18,34 @@ public class XLSReader implements Reader {
 	
 	private List<File> files;
 	
+	private Workbook workbook;
+
+	private static final String INPUT_FILE_EXTNS = ".xlsx";
+
 	public XLSReader(String sourcePath) {
 		files = new ArrayList<>();
 		File folder = new File(sourcePath);
-		files.addAll(Arrays.asList(folder.listFiles()));
+		files.addAll(Arrays.asList(folder.listFiles(applyFilter())));
+	}
+
+	private FilenameFilter applyFilter() {
+		return new FilenameFilter() {
+			@Override
+			public boolean accept(File file, String name) {
+				return name.endsWith(INPUT_FILE_EXTNS);
+			}
+		};
 	}
 
 	@Override
 	public List<File> getFileList() {
-		return getFiles();
+		return files;
 	}
 
 	@Override
 	public Workbook getReader(String file) throws EncryptedDocumentException, IOException {
-		return WorkbookFactory.create(new File(file));
+		workbook = WorkbookFactory.create(new File(file));
+		return workbook;
 	}
 	
 	@Override
@@ -41,21 +56,18 @@ public class XLSReader implements Reader {
 		getReader(file.getAbsolutePath()).forEach(sheet -> {
 			sheet.getRow(0).forEach(cell -> {
 				String val = dataFormatter.formatCellValue(cell);
-				if (!headers.contains(val)) {
-					headers.add(val);
+				if (!val.isEmpty() && !headers.contains(val)) {
+					headers.add(val.toLowerCase().trim());
 				}
 			});
 		});
 		
+		closeXLSReader();
 		return headers;
 	}
 
-	public List<File> getFiles() {
-		return files;
+	@Override
+	public void closeXLSReader() throws IOException {
+		workbook.close();
 	}
-
-	public void setFiles(List<File> files) {
-		this.files = files;
-	}
-
 }

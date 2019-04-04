@@ -13,4 +13,6 @@ public interface Reader {
 	public Workbook getReader(String filePath) throws EncryptedDocumentException, IOException;
 
 	List<String> getHeadersForFile(File file) throws EncryptedDocumentException, IOException;
+
+	void closeXLSReader() throws IOException;
 }

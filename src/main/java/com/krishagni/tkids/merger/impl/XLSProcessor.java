@@ -40,6 +40,11 @@ public class XLSProcessor implements Processor {
 					
 					String currCellHead = getCurrCellHeader(sheet, cell);
 					
+					if (currCellHead.isEmpty()) {
+						// Ignore stray cells which don't belong under any column header
+						continue;
+					}
+
 					addToPrintBufferArray(finalHeader.indexOf(currCellHead), val);
 				}
 				csvReader.printToCSV(printBufferArray);
@@ -52,7 +57,8 @@ public class XLSProcessor implements Processor {
 	private String getCurrCellHeader(Sheet sheet, Cell curCell) {
 		int currCellIdx = curCell.getAddress().getColumn();
 		Cell headerRowCell = sheet.getRow(0).getCell(currCellIdx);
-		return dataFormatter.formatCellValue(headerRowCell);
+		String cellVal = dataFormatter.formatCellValue(headerRowCell);
+		return cellVal.trim().toLowerCase();
 	}
 
 	private void initPrintBufferArray() {
