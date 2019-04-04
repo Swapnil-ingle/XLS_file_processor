@@ -7,5 +7,5 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.krishagni.tkids.merger.impl.CSVWriter;
 
 public interface Processor {
-	void process(Workbook workbook, CSVWriter csvReader) throws IOException;
+	public void process(Workbook workbook, CSVWriter csvReader) throws IOException;
 }

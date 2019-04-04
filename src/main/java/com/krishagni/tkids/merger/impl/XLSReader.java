@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import com.krishagni.tkids.merger.Reader;
 
 public class XLSReader implements Reader {
-	
 	private List<File> files;
 	
 	private Workbook workbook;
