@@ -12,13 +12,11 @@ import com.krishagni.tkids.merger.impl.XLSProcessor;
 import com.krishagni.tkids.merger.impl.XLSReader;
 
 public class Driver {
-	public static final String SOURCE_PATH = "/Users/swapnil/links/tkids-merge-xls-script/input-files";
-	
 	public static final String OUTPUT_FILE_NAME = "output.csv";
 
 	public static void main(String[] args) {
 		try {
-			Reader reader = new XLSReader(SOURCE_PATH);
+			Reader reader = new XLSReader(args[0]);
 			List<String> outputHeader = readAllHeaders(reader, reader.getFileList());
 			
 			Processor processor = new XLSProcessor(outputHeader);
