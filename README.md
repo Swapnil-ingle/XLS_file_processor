@@ -4,7 +4,7 @@ Created a XLSX/XLS file processor for alleviating ETL tasks.
 
 It merges input XLSX/XLS files into a single CSV file that conforms to OpenSpecimen APIs.
 
-## How to setup this plugin
+## How to setup
 
 1. `git clone https://github.com/Swapnil-ingle/XLS_file_processor`
 
