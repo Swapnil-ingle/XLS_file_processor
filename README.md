@@ -20,7 +20,7 @@ It merges input XLSX/XLS files into a single CSV file that conforms to OpenSpeci
 
 1. This was tested on Gradle v2.0
 
-2. Here resides the shell script and batch script for the program.
+2. The shell script and batch script for the program are in $XLS_REPO/build/install/XLS_file_processor/bin.
 
 ## Processing
 
