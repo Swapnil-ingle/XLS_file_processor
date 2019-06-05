@@ -19,7 +19,9 @@ public class XLSReader implements Reader {
 	
 	private Workbook workbook;
 
-	private static final String INPUT_FILE_EXTNS = ".xlsx";
+	private static final String XLSX = ".xlsx";
+
+	private static final String XLS = ".xls";
 
 	public XLSReader(String sourcePath) {
 		files = new ArrayList<>();
@@ -31,7 +33,7 @@ public class XLSReader implements Reader {
 		return new FilenameFilter() {
 			@Override
 			public boolean accept(File file, String name) {
-				return name.endsWith(INPUT_FILE_EXTNS);
+				return name.endsWith(XLSX) || name.endsWith(XLS);
 			}
 		};
 	}

@@ -1,8 +1,26 @@
 # XLS_file_processor
 
-Created a XLSX file processor for alleviating ETL tasks. 
+Created a XLSX/XLS file processor for alleviating ETL tasks. 
 
-It merges input XLSX files into a single CSV file that conforms to OpenSpecimen APIs.
+It merges input XLSX/XLS files into a single CSV file that conforms to OpenSpecimen APIs.
+
+## How to setup
+
+1. `git clone https://github.com/Swapnil-ingle/XLS_file_processor`
+
+2. `gradle clean`
+
+3. `gradle installApp`
+
+4. `cd $XLS_REPO/build/install/XLS_file_processor/bin`
+
+5. `./tkids-merge-xls-script <PATH-TO-INPUT-FILES>`
+
+**Note:**
+
+1. This was tested on Gradle v2.0
+
+2. The shell script and batch script for the program are in $XLS_REPO/build/install/XLS_file_processor/bin.
 
 ## Processing
 
