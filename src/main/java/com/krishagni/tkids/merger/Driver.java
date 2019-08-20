@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.EncryptedDocumentException;
@@ -20,22 +21,31 @@ public class Driver {
 
 	private static final String OUTPUT_CSV_NAME_DATETIME_FORMAT = "yyyy_MM_dd-HH_mm_ss";
 
+	private static final String OUTPUT_HEADERS_ORIGIN_FILE_NAME = "output-headers-origin.csv";
+
 	public static void main(String[] args) {
 		try {
 			Reader reader = new XLSReader(getSourceFilePath(args));
+			String outputDir = getOutputDir(args[0]);
+
 			List<String> outputHeader = readAllHeaders(reader, reader.getFileList());
 			
 			Processor processor = new XLSProcessor(outputHeader);
-			CSVWriter csvWriter = new CSVWriter(getOutputDir(args[0]), getOutputFileName(args[0]));
+			CSVWriter csvWriter = new CSVWriter(outputDir, getOutputFileName());
+			CSVWriter headerCsvWriter = new CSVWriter(outputDir, OUTPUT_HEADERS_ORIGIN_FILE_NAME);
 
 			csvWriter.printToCSV(outputHeader);
+			headerCsvWriter.writeHeader(getHeadersOriginFileHeaders());
 			
 			for (File file : reader.getFileList()) {
-				processor.process(reader.getReader(file.getAbsolutePath()), csvWriter);
+				processor.process(file, reader.getReader(file.getAbsolutePath()), csvWriter);
 				csvWriter.flushPrinter();
 			}
-			
+
+			processor.writeHeaderOriginToCsv(headerCsvWriter);
+
 			csvWriter.closeCsvWriter();
+			headerCsvWriter.closeCsvWriter();
 		} catch (Exception e) {
 			System.out.println("Error while processing: ");
 			e.printStackTrace();
@@ -45,16 +55,16 @@ public class Driver {
 	}
 
 	private static String getOutputDir(String inputFilesPath) {
-		File outputDir = new File(inputFilesPath + File.separatorChar + OUTPUT_DIR_NAME);
+		File outputDir = new File(inputFilesPath + File.separatorChar + OUTPUT_DIR_NAME + File.separatorChar + getCurrentTimeStamp());
 		if (!outputDir.exists()) {
-			outputDir.mkdir();
+			outputDir.mkdirs();
 		}
 
 		return outputDir.getAbsolutePath();
 	}
 
-	private static String getOutputFileName(String outputFile) {
-		return OUTPUT_FILE_NAME + "_" + getCurrentTimeStamp() + ".csv";
+	private static String getOutputFileName() {
+		return OUTPUT_FILE_NAME + ".csv";
 	}
 
 	private static String getCurrentTimeStamp() {
@@ -81,7 +91,10 @@ public class Driver {
 				}
 			});
 		}
-
 		return headers;
+	}
+
+	private static List<String> getHeadersOriginFileHeaders() {
+		return Arrays.asList(new String[] {"ColumnName", "FileName", "SheetName"});
 	}
 }
