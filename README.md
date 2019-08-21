@@ -12,6 +12,8 @@ It merges input XLSX/XLS files into a single CSV file that conforms to OpenSpeci
 
 3. `gradle installApp`
 
+## How to run
+
 4. `cd $XLS_REPO/build/install/XLS_file_processor/bin`
 
 5. `./tkids-merge-xls-script <PATH-TO-INPUT-FILES>`
