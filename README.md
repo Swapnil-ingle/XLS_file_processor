@@ -29,7 +29,11 @@ All XLSX files directly under the input directory provided will be processed by 
 
 Upon fully processing the input files, the program will give a message as *"Done processing!!"*
 
-Under the input directory a new folder *"merge-outputs"* will be created, if does not exists previously. Under **$INPUT_DIR/merge-outputs/** the output CSV will be created with the name **output_<yyyy_mm_dd-hh-MM-ss>.csv**
+Under the input directory a new folder *"merge-outputs"* will be created, if does not exists previously. 
+
+Under **$INPUT_DIR/merge-outputs/<yyyy_mm_dd-hh-MM-ss>** two output CSVs will be created with the name 
+1. **output.csv** (Merged output CSV)
+2. **output-headers-origin.csv** (A helping CSV that back-tracks where each column header came from)
 
 ## Error and special case handling
 
