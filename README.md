@@ -14,9 +14,15 @@ It merges input XLSX/XLS files into a single CSV file that conforms to OpenSpeci
 
 ## How to run
 
-4. `cd $XLS_REPO/build/install/XLS_file_processor/bin`
+The shell script and batch script for running the program are generated in the dir **$XLS_REPO/build/install/XLS_file_processor/bin** after the plugin is setup.
 
-5. `./tkids-merge-xls-script <PATH-TO-INPUT-FILES>`
+1. `cd $XLS_REPO/build/install/XLS_file_processor/bin`
+
+**Linux:**
+> 2. `./tkids-merge-xls-script <ABSOLUTE-PATH-TO-INPUT-FILES>`
+
+**Windows:**
+> 2. `tkids-merge-xls-script <ABSOLUTE-PATH-TO-INPUT-FILES>`
 
 **Note:**
 
@@ -46,3 +52,10 @@ Under **$INPUT_DIR/merge-outputs/<yyyy_mm_dd-hh-MM-ss>** two output CSVs will be
 3. All rows, until EOF, will be merged to the output file. (Any empty rows, will also be merged as is.)
 
 4. All the headers will be converted to lowercase to avoid case-sensitivity issues while matching the various headers of multiple files.
+
+## Using the scripts on a remote machine
+
+Once the program is setup the scripts can be moved to any machine where it needs to be executed.
+Copy the **$XLS_REPO/build/install** folder to the destination server/machine where you need to execute this.
+
+Once you have the *scripts(/bin)* and the */lib* folder on the target server you can follow the **"How to run"** section
