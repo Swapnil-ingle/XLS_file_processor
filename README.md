@@ -2,7 +2,7 @@
 
 Created a XLSX/XLS file processor for alleviating ETL tasks. 
 
-It merges input XLSX/XLS files into a single CSV file that conforms to OpenSpecimen APIs.
+It merges input XLSX/XLS files into a single CSV file.
 
 ## How to setup
 
